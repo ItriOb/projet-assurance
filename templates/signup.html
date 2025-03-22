@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Estim Auto </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/static/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="/static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Spinner Start -->
+<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+<!-- Spinner End -->
+
+
+<!-- Navbar start -->
+<div class="container-fluid fixed-top">
+    <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+            <a href="/" class="navbar-brand"><h1 class="text-primary display-6">Estim Auto</h1></a>
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars text-primary"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a href="/" class="nav-item nav-link active">Home</a>
+                    {% if session.user_email %}
+                        <a href="/dashboard" class="nav-item nav-link active">Estimation</a>
+                    {% endif %}
+                    <a href="#" class="nav-item nav-link">Documentation</a>
+                    <a href="#" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex m-3 me-0">
+                    <a href="/signup" class="btn border border-secondary rounded-pill px-3 text-primary" style="margin-right: 10px">Créer un compte</a>
+                    <a href="/login" class="btn border border-primary rounded-pill px-3 text-secondary" > Se connecter</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+
+<!-- Modal Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center">
+                <div class="input-group w-75 mx-auto d-flex">
+                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Search End -->
+
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Créer un compte</h1>
+</div>
+<!-- Single Page Header End -->
+
+
+<!-- Checkout Page Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <h1 class="mb-4">Sign Up</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form class="form"  action = "{{ url_for("signup") }}" method="POST">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-item">
+                        <label class="form-label my-3">Nom Complet</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Email</label>
+                        <input type="email" name="email" class="form-control">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Mot de passe</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Numéro de téléphone</label>
+                        <input type="text" name="phoneNumber" class="form-control" placeholder="06XXXXXXXX">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-item">
+                        <label class="form-label my-3">Adresse Complète</label>
+                        <input type="text" name="address" class="form-control">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Matricule du véhicule</label>
+                        <input type="text" name="vehicleId" class="form-control">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Marque de la voiture</label>
+                        <select id="carBrand" name="carBrand" class="form-select" onchange="updateModels()">
+                            <option value="">Sélectionnez une marque</option>
+                            <!-- Brands will be populated from JSON data -->
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Modèle de la voiture</label>
+                        <select id="carModel" name="carModel" class="form-select">
+                            <option value="">Sélectionnez d'abord une marque</option>
+                            <!-- Models will be populated based on brand selection -->
+                        </select>
+                    </div>
+                </div>
+                <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                    <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Créer un compte</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Checkout Page End -->
+
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+    <div class="container py-5">
+        <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <a href="#">
+                        <h1 class="text-primary mb-0">Estim Auto</h1>
+                        <p class="text-secondary mb-0">Fresh products</p>
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
+                        <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="d-flex justify-content-end pt-3">
+                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Footer End -->
+
+<!-- Copyright Start -->
+<div class="container-fluid copyright bg-dark py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+            </div>
+            <div class="col-md-6 my-auto text-center text-md-end text-white">
+                <!--/*** This template is free as long as you keep the below author's credit link/attribution link/backlink. ***/-->
+                <!--/*** If you'd like to use the template without the below author's credit link/attribution link/backlink, ***/-->
+                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Copyright End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/lib/easing/easing.min.js"></script>
+<script src="/static/lib/waypoints/waypoints.min.js"></script>
+<script src="/static/lib/lightbox/js/lightbox.min.js"></script>
+<script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="/static/js/main.js"></script>
+
+<!-- Car Data and Dropdown Logic -->
+<script>
+    // Variable to store car data
+    let carData = {};
+
+    // Fetch JSON data from the file
+    fetch('./static/car_parts_prices.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            carData = data;
+            populateBrandDropdown();
+        })
+        .catch(error => {
+            console.error('There was a problem fetching the car data:', error);
+            // Fallback in case the fetch fails
+            alert('Could not load car data. Please refresh the page or contact support.');
+        });
+
+    // Populate the brand dropdown with options from the JSON
+    function populateBrandDropdown() {
+        const brandDropdown = document.getElementById('carBrand');
+
+        // Clear any existing options except the first one
+        while (brandDropdown.options.length > 1) {
+            brandDropdown.remove(1);
+        }
+
+        // Add brands from the JSON data
+        for (const brand in carData) {
+            const option = document.createElement('option');
+            option.value = brand;
+            option.textContent = brand;
+            brandDropdown.appendChild(option);
+        }
+    }
+
+    // Update the model dropdown based on the selected brand
+    function updateModels() {
+        const brandDropdown = document.getElementById('carBrand');
+        const modelDropdown = document.getElementById('carModel');
+        const selectedBrand = brandDropdown.value;
+
+        // Clear existing options
+        while (modelDropdown.options.length > 0) {
+            modelDropdown.remove(0);
+        }
+
+        // Add default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+
+        if (selectedBrand === '') {
+            defaultOption.textContent = 'Sélectionnez d\'abord une marque';
+        } else {
+            defaultOption.textContent = 'Sélectionnez un modèle';
+        }
+
+        modelDropdown.appendChild(defaultOption);
+
+        // If a brand is selected, populate with models
+        if (selectedBrand !== '' && carData[selectedBrand]) {
+            for (const model in carData[selectedBrand]) {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                modelDropdown.appendChild(option);
+            }
+        }
+    }
+
+    // Initialize dropdowns when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Try to populate if the data was already loaded
+        if (Object.keys(carData).length > 0) {
+            populateBrandDropdown();
+        }
+    });
+</script>
+</body>
+</html>

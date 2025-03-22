@@ -1,0 +1,34 @@
+{
+    "VOLKSWAGEN": {
+        "Golf": {"Bonnet": 167, "Bumper": 111, "Dickey": 89, "Door": 222, "Fender": 56, "Light": 33, "Windshield": 89},
+        "Polo": {"Bonnet": 133, "Bumper": 89, "Dickey": 67, "Door": 200, "Fender": 44, "Light": 28, "Windshield": 78},
+        "Tiguan": {"Bonnet": 200, "Bumper": 133, "Dickey": 111, "Door": 267, "Fender": 78, "Light": 44, "Windshield": 111},
+        "Passat": {"Bonnet": 222, "Bumper": 144, "Dickey": 122, "Door": 289, "Fender": 83, "Light": 50, "Windshield": 122},
+        "Arteon": {"Bonnet": 244, "Bumper": 167, "Dickey": 144, "Door": 311, "Fender": 89, "Light": 56, "Windshield": 133},
+        "T-Roc": {"Bonnet": 178, "Bumper": 122, "Dickey": 100, "Door": 244, "Fender": 67, "Light": 39, "Windshield": 100}
+    },
+    "BMW": {
+        "1 Series": {"Bonnet": 200, "Bumper": 133, "Dickey": 111, "Door": 267, "Fender": 78, "Light": 44, "Windshield": 111},
+        "3 Series": {"Bonnet": 222, "Bumper": 144, "Dickey": 122, "Door": 289, "Fender": 83, "Light": 50, "Windshield": 122},
+        "5 Series": {"Bonnet": 244, "Bumper": 167, "Dickey": 144, "Door": 311, "Fender": 89, "Light": 56, "Windshield": 133},
+        "7 Series": {"Bonnet": 278, "Bumper": 189, "Dickey": 167, "Door": 333, "Fender": 100, "Light": 67, "Windshield": 156},
+        "X3": {"Bonnet": 222, "Bumper": 144, "Dickey": 122, "Door": 289, "Fender": 83, "Light": 50, "Windshield": 122},
+        "X5": {"Bonnet": 256, "Bumper": 178, "Dickey": 156, "Door": 322, "Fender": 94, "Light": 61, "Windshield": 144}
+    },
+    "MERCEDES": {
+        "A-Class": {"Bonnet": 200, "Bumper": 133, "Dickey": 111, "Door": 267, "Fender": 78, "Light": 44, "Windshield": 111},
+        "C-Class": {"Bonnet": 222, "Bumper": 144, "Dickey": 122, "Door": 289, "Fender": 83, "Light": 50, "Windshield": 122},
+        "E-Class": {"Bonnet": 244, "Bumper": 167, "Dickey": 144, "Door": 311, "Fender": 89, "Light": 56, "Windshield": 133},
+        "S-Class": {"Bonnet": 289, "Bumper": 200, "Dickey": 178, "Door": 356, "Fender": 111, "Light": 72, "Windshield": 167},
+        "GLC": {"Bonnet": 233, "Bumper": 156, "Dickey": 133, "Door": 300, "Fender": 89, "Light": 56, "Windshield": 128},
+        "GLE": {"Bonnet": 267, "Bumper": 178, "Dickey": 156, "Door": 333, "Fender": 100, "Light": 67, "Windshield": 144}
+    },
+    "AUDI": {
+        "A3": {"Bonnet": 189, "Bumper": 128, "Dickey": 106, "Door": 256, "Fender": 72, "Light": 42, "Windshield": 106},
+        "A4": {"Bonnet": 211, "Bumper": 144, "Dickey": 122, "Door": 278, "Fender": 83, "Light": 50, "Windshield": 117},
+        "A6": {"Bonnet": 233, "Bumper": 156, "Dickey": 133, "Door": 300, "Fender": 89, "Light": 56, "Windshield": 128},
+        "Q3": {"Bonnet": 200, "Bumper": 133, "Dickey": 111, "Door": 267, "Fender": 78, "Light": 44, "Windshield": 111},
+        "Q5": {"Bonnet": 222, "Bumper": 144, "Dickey": 122, "Door": 289, "Fender": 83, "Light": 50, "Windshield": 122},
+        "Q7": {"Bonnet": 256, "Bumper": 178, "Dickey": 156, "Door": 322, "Fender": 94, "Light": 61, "Windshield": 144}
+    }
+}
